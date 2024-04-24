@@ -1,0 +1,36 @@
+<% layout('layout/boilerplate') %>
+    <div class="container">
+        <div class="form-group">
+        <form action="/campground/<%=camp._id%>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+        <label for="title" class="form-label">Campground Title</label>
+        <input type="text" id="title" name="title" value="<%=camp.title%>" class="form-control mb-3" required>
+        <label class="form-label" for="location" value=<%=`${camp.location}`%>>City: (Example: Lincoln, Nebraska)</label>
+        <input class="form-control mb-3" type="text" id="location" name="location" value="<%=camp.location%>" required>
+        <label for="price" class="form-label">Price: (Example: 100.59)</label>
+        <input type="text" id="price" name="price" class="form-control mb-3" value="<%=camp.price %>" required>
+        <div class="mb-3">
+            <label for="formFileMultiple" class="form-label">Upload Images</label>
+            <input class="form-control" type="file" id="formFileMultiple" name="images" multiple>
+          </div>
+        <label class="form-label" for="description">Description: </label>
+        <input class="form-control mb-3" type="text" name="description" id="description" value=<%= camp.description %> required>
+        <div class="mb-3">
+            <% camp.images.forEach(function(img, i) {  %>
+                <% console.log("RIGHT HERE RIGHT HERE RIGHT HEREf") %>
+                <% console.log(img) %>
+            <img src="<%=img.thumbnail %>" class="img-thumbnail" alt="">
+            <div class="form-check-inline">
+                <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.name%>">
+            </div>
+            <label for="image-<%=i%>">Delete?</label>
+            <% })%>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+        <button class="btn btn-success">Submit</button>
+        </form>
+        <a href="/campground/test"><button class="btn btn-success">Back</button></a>
+    </div>
+    </div>
+    </div>
+    </div>
