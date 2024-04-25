@@ -36,7 +36,11 @@ const userRoutes = require('./routes/userRoutes')
 const helmet = require('helmet')
 const {storeReturnTo} = require('./middleware')
 
-mongoose.connect(process.env.DB_URL, {
+const port = process.env.PORT || '3000'
+const secret = process.env.SECRET || 'myappssupersecretsecret'
+const dbURL = process.env.DB_URL || 'mongodb://127.0.0.1:27017/yelp-camp'
+
+mongoose.connect(dbURL, {
 });
 
 const db = mongoose.connection;
@@ -63,13 +67,13 @@ app.use(
 
   const options = {
     mongoUrl: process.env.DB_URL,
-    secret: 'thisshouldbeabettersecretthanthisifyoudidntknowthatalreadyxdlol',
+    secret: secret,
     touchAfter: 24 * 60 * 60
   };
 
 
 const sessionConfig = {
-    secret: "thisshouldbeabettersecretthanthisifyoudidntknowthatalreadyxdlol!",
+    secret: secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -175,8 +179,8 @@ const seedDB = async() => {
 }
 seedDB()
 
-app.listen("3000", () => {
-    console.log("Port Open on 3000!");
+app.listen(port, () => {
+    console.log(`Port Open on ${port}`);
 });
 
 app.use((req,res,next) => {
