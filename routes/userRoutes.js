@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport')
 const User = require('../models/user');
 const wrapSync = require('../utilities/wrapSync');
-const { isLoggedin,storeReturnTo } = require('../middleware');
+const { storeReturnTo } = require('../middleware');
 const users = require('../controllers/user');
 
 router.route('/register')

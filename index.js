@@ -2,9 +2,6 @@ if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
 
-console.log(process.env.SECRET)
-
-//Possibly Take these lines out later
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
@@ -17,12 +14,7 @@ const methodOverride = require("method-override")
 const Campground = require("./models/campground")
 const Review = require("./models/review")
 const errorHandler = require("./utilities/AppError")
-const {validateCampground, validateReview} = require("./utilities/Schema")
 const wrapSync = require("./utilities/wrapSync")
-const cities = require("./seeds/cities")
-const {descriptors, places} = require("./seeds/seedHelpers");
-const { rmSync } = require("fs");
-const { wrap } = require("module");
 const routes = require('./routes/routes')
 const session = require('express-session')
 const MongoStore = require('connect-mongo');
@@ -34,7 +26,6 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user')
 const userRoutes = require('./routes/userRoutes')
 const helmet = require('helmet')
-const {storeReturnTo} = require('./middleware')
 
 const port = process.env.PORT || '3000'
 const secret = process.env.SECRET || 'myappssupersecretsecret'
@@ -80,7 +71,7 @@ const sessionConfig = {
     cookie: {
         name: 'session',
         httpOnly: true,
-        // secure: true,
+        secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7,
     }
@@ -154,31 +145,6 @@ passport.deserializeUser(User.deserializeUser());
 
 const arrayEvaluator = (array) => input = Math.floor(Math.random() * array.length)
 
-// const seedDB = async() => {
-//     await Campground.deleteMany({});
-//     await Review.deleteMany({});
-//     for (let i = 0; i < 50; i++) {
-//         const city = cities[arrayEvaluator(cities)];
-//         const camp = new Campground({
-//             author: '661483eeb384f8391188d31f',
-//             title: `${descriptors[arrayEvaluator(descriptors)]} ${places[arrayEvaluator(places)]}`,
-//             location: `${city.city}, ${city.state}`,
-//             images: {
-//                 url: `https://source.unsplash.com/collection/483251/1600x900`,
-//                 name: 'name'
-//             },
-//             geometry: {
-//                 type: 'Point',
-//                 coordinates: [city.longitude,city.latitude]  // Empty initially.
-//             },
-//             price: Math.floor((Math.random() * 200)) + 0.99,
-//             description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit."
-//         });
-//         await camp.save();
-//     }
-// }
-// seedDB()
-
 app.listen(port, () => {
     console.log(`Port Open on ${port}`);
 });
@@ -195,8 +161,6 @@ app.use("/campground", routes);
 
 app.get('/', (req, res) => {
     res.render('home')
-    console.log("QUERY LOGGING ACCURING HERE!")
-    console.log(req.query);
 })
 
 app.all('*', (req, res, next) => {

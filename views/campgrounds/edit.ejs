@@ -16,8 +16,6 @@
         <input class="form-control mb-3" type="text" name="description" id="description" value=<%= camp.description %> required>
         <div class="mb-3">
             <% camp.images.forEach(function(img, i) {  %>
-                <% console.log("RIGHT HERE RIGHT HERE RIGHT HEREf") %>
-                <% console.log(img) %>
             <img src="<%=img.thumbnail %>" class="img-thumbnail" alt="">
             <div class="form-check-inline">
                 <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.name%>">

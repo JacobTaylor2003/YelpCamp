@@ -34,7 +34,6 @@ module.exports.editCampground = async (req, res) => {
         }
     }
     await camp.save()
-    console.log(camp);
         req.flash('success', 'Successfully Edited a New Campground');
         res.redirect(`/campground/${id}`);
 };
@@ -58,7 +57,6 @@ module.exports.createCampground = async(req, res, next) => {
     images = req.files.map(f => ({url: f.path, name: f.filename}))
     const {title, location, price, description} = req.body;
     if (!(title,location,price,description,images)) {
-        console.log(title,location,price,description,image);
         throw new errorHandler("Invalid Campground", 400);
     } else {
         const camp = new Campground({title: title, location: location,images: images,price: price, description: description, geometry: {

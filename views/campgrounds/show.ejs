@@ -1,6 +1,5 @@
 <% layout('layout/boilerplate') %>
 <link rel="stylesheet" href="/styles/stars.css">
-<% console.log(campgrounds) %>
 <div class="container">
     <div class="row">
         <div class="col-6">
@@ -11,7 +10,7 @@
             <div class="carousel-inner">
                   <% imgCount = 0; %>
                 <% for(images of campgrounds.images) { %>
-                    <% imgCount++; console.log(imgCount); %>
+                    <% imgCount++;%>
                     <% if (imgCount === 1) { %>
                         <div class="carousel-item active">
                             <img src="<%=images.url%>" class="d-block w-100">
