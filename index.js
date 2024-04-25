@@ -73,6 +73,7 @@ app.use(
 
 
 const sessionConfig = {
+    store: MongoStore.create(options),
     secret: secret,
     resave: false,
     saveUninitialized: true,
@@ -82,7 +83,6 @@ const sessionConfig = {
         // secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7,
-        store: MongoStore.create(options)
     }
 }
 
