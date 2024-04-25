@@ -57,7 +57,7 @@ app.use(
   );
 
   const options = {
-    mongoUrl: process.env.DB_URL,
+    mongoUrl: dbURL,
     secret: secret,
     touchAfter: 24 * 60 * 60
   };
