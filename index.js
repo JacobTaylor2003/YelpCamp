@@ -154,30 +154,30 @@ passport.deserializeUser(User.deserializeUser());
 
 const arrayEvaluator = (array) => input = Math.floor(Math.random() * array.length)
 
-const seedDB = async() => {
-    await Campground.deleteMany({});
-    await Review.deleteMany({});
-    for (let i = 0; i < 50; i++) {
-        const city = cities[arrayEvaluator(cities)];
-        const camp = new Campground({
-            author: '661483eeb384f8391188d31f',
-            title: `${descriptors[arrayEvaluator(descriptors)]} ${places[arrayEvaluator(places)]}`,
-            location: `${city.city}, ${city.state}`,
-            images: {
-                url: `https://source.unsplash.com/collection/483251/1600x900`,
-                name: 'name'
-            },
-            geometry: {
-                type: 'Point',
-                coordinates: [city.longitude,city.latitude]  // Empty initially.
-            },
-            price: Math.floor((Math.random() * 200)) + 0.99,
-            description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit."
-        });
-        await camp.save();
-    }
-}
-seedDB()
+// const seedDB = async() => {
+//     await Campground.deleteMany({});
+//     await Review.deleteMany({});
+//     for (let i = 0; i < 50; i++) {
+//         const city = cities[arrayEvaluator(cities)];
+//         const camp = new Campground({
+//             author: '661483eeb384f8391188d31f',
+//             title: `${descriptors[arrayEvaluator(descriptors)]} ${places[arrayEvaluator(places)]}`,
+//             location: `${city.city}, ${city.state}`,
+//             images: {
+//                 url: `https://source.unsplash.com/collection/483251/1600x900`,
+//                 name: 'name'
+//             },
+//             geometry: {
+//                 type: 'Point',
+//                 coordinates: [city.longitude,city.latitude]  // Empty initially.
+//             },
+//             price: Math.floor((Math.random() * 200)) + 0.99,
+//             description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit."
+//         });
+//         await camp.save();
+//     }
+// }
+// seedDB()
 
 app.listen(port, () => {
     console.log(`Port Open on ${port}`);
